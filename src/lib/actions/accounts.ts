@@ -48,7 +48,10 @@ export async function connectAccount(input: ConnectAccountInput): Promise<Action
   const apiKey = input.apiKey.trim();
   const apiSecret = input.apiSecret.trim();
   if (apiKey.length < 4) return { ok: false, error: "API key looks too short." };
-  if (apiSecret.length < 4) return { ok: false, error: "API secret looks too short." };
+  // Tradier authenticates with a single access token — no secret needed.
+  if (platform.id !== "tradier" && apiSecret.length < 4) {
+    return { ok: false, error: "API secret looks too short." };
+  }
   if (input.mode !== "paper" && input.mode !== "live") {
     return { ok: false, error: "Invalid account mode." };
   }
@@ -111,18 +114,21 @@ export async function reconnectAccount(
 
   const key = apiKey.trim();
   const secret = apiSecret.trim();
-  if (key.length < 4 || secret.length < 4) {
-    return { ok: false, error: "Enter the new API key and secret." };
+  if (key.length < 4) {
+    return { ok: false, error: "Enter the new API key." };
   }
 
   const supabase = await createClient();
   const { data: account } = await supabase
     .from("connected_accounts")
-    .select("id")
+    .select("id, platform")
     .eq("id", accountId)
     .eq("user_id", profile.id)
     .single();
   if (!account) return { ok: false, error: "Account not found." };
+  if (account.platform !== "tradier" && secret.length < 4) {
+    return { ok: false, error: "Enter the new API secret." };
+  }
 
   let encryptedKey: string;
   let encryptedSecret: string;

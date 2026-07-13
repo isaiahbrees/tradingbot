@@ -40,7 +40,7 @@ export default async function PerformancePage({
 
   const accounts = await getAccounts(profile.id);
   const account = await getSelectedAccount(accounts);
-  const data = getAccountData(account);
+  const data = await getAccountData(account);
 
   const filteredDaily = filterDaily(data.daily, range);
   const filteredTrades = filterTrades(data.trades, range);

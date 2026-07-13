@@ -104,15 +104,34 @@ with `NEXT_PUBLIC_` — they are server-only secrets.
   Members render it in a read-only viewer (no editable field exists outside
   `/admin/prompt`).
 
-## Adding a real platform integration
+## Live platform sync (Tradier & Alpaca)
 
-1. Add the platform to `PLATFORMS` in `src/lib/types.ts` (this makes it selectable).
-2. Build a sync job (cron/edge function) that decrypts credentials with
-   `decryptSecret`, pulls fills from the platform API, and writes `trades` +
-   `daily_performance` rows with the service role.
-3. Swap `getAccountData` in `src/lib/data.ts` to read those tables when an account
-   has synced data — the entire UI (charts, tables, stats, Demo badge) already keys
-   off that one function.
+Accounts on platforms with a sync adapter import real trade history:
+
+- **Tradier** — connect with your access token as the API key (no secret).
+  Paper mode uses the sandbox host.
+- **Alpaca** — connect with API key + secret. Paper mode uses `paper-api`.
+
+How it works: the sync engine (`src/lib/sync/`) decrypts the stored
+credentials server-side, pulls fills and current equity from the platform,
+pairs fills into round-trip trades (FIFO, longs and shorts), rebuilds
+`trades` + `daily_performance`, and stamps `last_synced_at`. Once an account
+has synced rows, every dashboard switches from demo to real data
+automatically and the Demo badge disappears.
+
+Triggers:
+- **Sync now** — per-account menu action on the Connected Accounts page.
+- **Daily cron** — `vercel.json` schedules `/api/cron/sync`; set a
+  `CRON_SECRET` env var in Vercel to enable it (the endpoint rejects
+  requests without it).
+
+### Adding another platform
+
+1. Add it to `PLATFORMS` in `src/lib/types.ts` with `autoSync: true`.
+2. Write an adapter implementing `ProviderAdapter`
+   (see `src/lib/sync/tradier.ts` for the pattern).
+3. Register it in `ADAPTERS` in `src/lib/sync/engine.ts`. Done — the UI,
+   cron, and Sync Now button pick it up automatically.
 
 ## Scripts
 

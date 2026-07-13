@@ -46,7 +46,7 @@ export default async function OverviewPage({
   const range = parseRange((await searchParams).range, "30d");
   const accounts = await getAccounts(profile.id);
   const account = await getSelectedAccount(accounts);
-  const data = getAccountData(account);
+  const data = await getAccountData(account);
 
   const stats = computeStats(data.daily, data.trades, data.startingBalance);
   const filtered = filterDaily(data.daily, range);

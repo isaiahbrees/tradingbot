@@ -14,7 +14,7 @@ export default async function TradesPage() {
 
   const accounts = await getAccounts(profile.id);
   const account = await getSelectedAccount(accounts);
-  const data = getAccountData(account);
+  const data = await getAccountData(account);
 
   return (
     <div>

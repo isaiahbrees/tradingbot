@@ -15,7 +15,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   const accounts = await getAccounts(profile.id);
   const selected = await getSelectedAccount(accounts);
-  const data = getAccountData(selected);
+  const data = await getAccountData(selected);
   const admin = isAdmin(profile);
 
   const cookieStore = await cookies();

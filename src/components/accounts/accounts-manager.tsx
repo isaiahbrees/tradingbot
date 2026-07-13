@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import {
+  ArrowLeftRight,
   FlaskConical,
   KeyRound,
   Loader2,
@@ -39,8 +40,9 @@ import {
   removeAccount,
   switchAccountMode,
 } from "@/lib/actions/accounts";
+import { syncAccountNow } from "@/lib/actions/sync";
 import { formatRelativeTime } from "@/lib/format";
-import { platformName, type ConnectedAccount } from "@/lib/types";
+import { PLATFORMS, platformName, type ConnectedAccount } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 function ConnectionStatus({ status }: { status: ConnectedAccount["status"] }) {
@@ -141,6 +143,20 @@ function AccountCard({ account }: { account: ConnectedAccount }) {
   const [reconnectOpen, setReconnectOpen] = useState(false);
   const [removeOpen, setRemoveOpen] = useState(false);
   const [isPending, startTransition] = useTransition();
+  const canSync = PLATFORMS.find((p) => p.id === account.platform)?.autoSync === true;
+
+  function syncNow() {
+    startTransition(async () => {
+      const result = await syncAccountNow(account.id);
+      if (result.ok) {
+        toast.success("Sync complete", {
+          description: `${result.trades ?? 0} trades imported from ${platformName(account.platform)}.`,
+        });
+      } else {
+        toast.error(result.error ?? "Sync failed.");
+      }
+    });
+  }
 
   function toggleMode() {
     const next = account.mode === "paper" ? "live" : "paper";
@@ -195,12 +211,18 @@ function AccountCard({ account }: { account: ConnectedAccount }) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              {canSync && (
+                <DropdownMenuItem onClick={syncNow}>
+                  <RefreshCw />
+                  Sync now
+                </DropdownMenuItem>
+              )}
               <DropdownMenuItem onClick={() => setReconnectOpen(true)}>
-                <RefreshCw />
+                <KeyRound />
                 Reconnect
               </DropdownMenuItem>
               <DropdownMenuItem onClick={toggleMode}>
-                <KeyRound />
+                <ArrowLeftRight />
                 Switch to {account.mode === "paper" ? "live" : "paper"}
               </DropdownMenuItem>
               <DropdownMenuSeparator />

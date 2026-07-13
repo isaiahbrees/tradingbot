@@ -5,7 +5,13 @@ import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/env";
 import { demoAccount, getDemoSeries, type DemoSeries } from "@/lib/demo-data";
 import { DEFAULT_MASTER_PROMPT } from "@/lib/master-prompt";
-import type { BotStatus, ConnectedAccount, MasterPrompt } from "@/lib/types";
+import type {
+  BotStatus,
+  ConnectedAccount,
+  DailyPerformance,
+  MasterPrompt,
+  Trade,
+} from "@/lib/types";
 
 export const SELECTED_ACCOUNT_COOKIE = "tb_selected_account";
 
@@ -47,11 +53,45 @@ export interface AccountData extends DemoSeries {
 }
 
 /**
- * Trading data for one account. Real platform syncs land here later — until
- * an account has synced trades, it is backed by deterministic demo data and
- * flagged so the UI can show the Demo Mode badge.
+ * Trading data for one account. If the account has synced rows in the
+ * database (written by the sync engine), those are served and the Demo
+ * badge disappears; otherwise deterministic demo data fills the screens.
  */
-export function getAccountData(account: ConnectedAccount): AccountData {
+export async function getAccountData(account: ConnectedAccount): Promise<AccountData> {
+  if (isSupabaseConfigured && !account.is_demo) {
+    const supabase = await createClient();
+    const { data: daily } = await supabase
+      .from("daily_performance")
+      .select("date, pnl, return_pct, trades, wins, losses, balance, fees")
+      .eq("account_id", account.id)
+      .order("date", { ascending: true });
+
+    if (daily && daily.length > 0) {
+      const { data: trades } = await supabase
+        .from("trades")
+        .select(
+          "id, account_id, symbol, side, quantity, entry_price, exit_price, pnl, return_pct, fees, status, opened_at, closed_at"
+        )
+        .eq("account_id", account.id)
+        .order("opened_at", { ascending: false })
+        .limit(2000);
+
+      const first = daily[0] as DailyPerformance;
+      return {
+        daily: daily as DailyPerformance[],
+        trades: (trades ?? []) as Trade[],
+        startingBalance: Number((first.balance - first.pnl).toFixed(2)),
+        isDemo: false,
+        botStatus:
+          account.status === "connected"
+            ? "running"
+            : account.status === "error"
+              ? "error"
+              : "paused",
+      };
+    }
+  }
+
   const series = getDemoSeries(account.id, account.mode);
   return {
     ...series,

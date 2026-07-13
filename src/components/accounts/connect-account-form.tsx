@@ -41,6 +41,9 @@ export function ConnectAccountForm({
   const [mode, setMode] = useState<AccountMode>("paper");
   const [isPending, startTransition] = useTransition();
 
+  const selectedPlatform = PLATFORMS.find((p) => p.id === platform);
+  const isTradier = platform === "tradier";
+
   function submit(e: React.FormEvent) {
     e.preventDefault();
     if (!platform) {
@@ -94,6 +97,15 @@ export function ConnectAccountForm({
             })}
           </SelectContent>
         </Select>
+        {selectedPlatform && (
+          <p className="text-xs text-muted-foreground">
+            {selectedPlatform.autoSync
+              ? "Trade history syncs automatically once connected."
+              : "Credentials are stored now; automatic sync for this platform is coming later."}
+            {isTradier &&
+              " Tradier uses a single access token — paste it as the API key and leave the secret blank."}
+          </p>
+        )}
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -121,7 +133,7 @@ export function ConnectAccountForm({
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="api-key">API key</Label>
+        <Label htmlFor="api-key">{isTradier ? "Access token" : "API key"}</Label>
         <Input
           id="api-key"
           type="password"
@@ -134,13 +146,16 @@ export function ConnectAccountForm({
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="api-secret">API secret</Label>
+        <Label htmlFor="api-secret">
+          API secret{isTradier && <span className="text-muted-foreground"> (not needed)</span>}
+        </Label>
         <Input
           id="api-secret"
           type="password"
           autoComplete="off"
-          required
-          value={apiSecret}
+          required={!isTradier}
+          disabled={isTradier}
+          value={isTradier ? "" : apiSecret}
           onChange={(e) => setApiSecret(e.target.value)}
           className="font-mono"
         />

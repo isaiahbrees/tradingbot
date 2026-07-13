@@ -99,14 +99,18 @@ export interface Platform {
   name: string;
   kind: "brokerage" | "exchange" | "futures" | "forex";
   description: string;
+  /** True when a sync adapter exists and trade history imports automatically. */
+  autoSync?: boolean;
 }
 
 /**
- * Supported integrations. Adding a platform here (and nothing else) makes it
- * selectable in the connect flow — the credential schema is shared.
+ * Supported integrations. Adding a platform here makes it selectable in the
+ * connect flow; pairing it with an adapter in lib/sync/engine.ts turns on
+ * automatic trade-history sync.
  */
 export const PLATFORMS: Platform[] = [
-  { id: "alpaca", name: "Alpaca", kind: "brokerage", description: "US stocks & crypto API brokerage" },
+  { id: "tradier", name: "Tradier", kind: "brokerage", description: "US stocks & options brokerage", autoSync: true },
+  { id: "alpaca", name: "Alpaca", kind: "brokerage", description: "US stocks & crypto API brokerage", autoSync: true },
   { id: "interactive_brokers", name: "Interactive Brokers", kind: "brokerage", description: "Global multi-asset brokerage" },
   { id: "binance", name: "Binance", kind: "exchange", description: "Crypto exchange" },
   { id: "coinbase", name: "Coinbase Advanced", kind: "exchange", description: "Crypto exchange" },
