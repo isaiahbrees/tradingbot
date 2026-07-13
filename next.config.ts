@@ -9,6 +9,8 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       // Google account avatars
       { protocol: "https", hostname: "lh3.googleusercontent.com" },
+      // Login page backdrop
+      { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
 };
