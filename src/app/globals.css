@@ -124,61 +124,6 @@
   background: oklch(0.7 0 0 / 30%);
 }
 
-/* Login backdrop — iridescent aurora ribbons on black */
-@keyframes ribbon-1 {
-  0%,
-  100% {
-    transform: rotate(-7deg) translate3d(-2%, 0, 0);
-    filter: blur(12px) saturate(1.6) hue-rotate(0deg);
-  }
-  50% {
-    transform: rotate(-5deg) translate3d(3%, -2%, 0);
-    filter: blur(12px) saturate(1.6) hue-rotate(30deg);
-  }
-}
-@keyframes ribbon-2 {
-  0%,
-  100% {
-    transform: rotate(4deg) translate3d(2%, 0, 0);
-    filter: blur(18px) saturate(1.4) hue-rotate(0deg);
-  }
-  50% {
-    transform: rotate(6deg) translate3d(-3%, 2%, 0);
-    filter: blur(18px) saturate(1.4) hue-rotate(-40deg);
-  }
-}
-@keyframes aurora-1 {
-  0%,
-  100% {
-    transform: translate3d(-15%, -8%, 0) scale(1);
-    opacity: 0.85;
-  }
-  50% {
-    transform: translate3d(35%, 22%, 0) scale(1.35);
-    opacity: 1;
-  }
-}
-@keyframes aurora-2 {
-  0%,
-  100% {
-    transform: translate3d(14%, 18%, 0) scale(1.1);
-    opacity: 1;
-  }
-  50% {
-    transform: translate3d(-25%, -18%, 0) scale(0.85);
-    opacity: 0.7;
-  }
-}
-@keyframes aurora-3 {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
-  }
-  50% {
-    transform: translate3d(-22%, 20%, 0) scale(1.4) rotate(25deg);
-  }
-}
-
 /* Thin, quiet scrollbars */
 * {
   scrollbar-width: thin;
