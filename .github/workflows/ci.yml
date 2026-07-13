@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  NEXT_TELEMETRY_DISABLED: "1"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Lint
+        run: npm run lint
+
+      # Type-checks and compiles the whole app. Runs with no Supabase env
+      # vars, which exercises the local-preview (demo mode) code path — the
+      # same configuration a first Vercel deploy uses.
+      - name: Build
+        run: npm run build
