@@ -124,16 +124,27 @@
   background: oklch(0.7 0 0 / 30%);
 }
 
-/* Login backdrop — prism beam + drifting aurora blobs */
-@keyframes beam-drift {
+/* Login backdrop — iridescent aurora ribbons on black */
+@keyframes ribbon-1 {
   0%,
   100% {
-    transform: translate(-5%, -50%) scaleY(1);
-    filter: blur(90px) hue-rotate(0deg);
+    transform: rotate(-7deg) translate3d(-2%, 0, 0);
+    filter: blur(12px) saturate(1.6) hue-rotate(0deg);
   }
   50% {
-    transform: translate(5%, -50%) scaleY(1.15);
-    filter: blur(90px) hue-rotate(-35deg);
+    transform: rotate(-5deg) translate3d(3%, -2%, 0);
+    filter: blur(12px) saturate(1.6) hue-rotate(30deg);
+  }
+}
+@keyframes ribbon-2 {
+  0%,
+  100% {
+    transform: rotate(4deg) translate3d(2%, 0, 0);
+    filter: blur(18px) saturate(1.4) hue-rotate(0deg);
+  }
+  50% {
+    transform: rotate(6deg) translate3d(-3%, 2%, 0);
+    filter: blur(18px) saturate(1.4) hue-rotate(-40deg);
   }
 }
 @keyframes aurora-1 {

@@ -23,25 +23,25 @@ export default async function LoginPage({
   }
 
   return (
-    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-[#060606] px-4 py-10">
-      {/* ── Animated prism backdrop ──────────────────────────────────── */}
+    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-black px-4 py-10">
+      {/* ── Aurora ribbons on black ──────────────────────────────────── */}
       <div aria-hidden="true" className="absolute inset-0">
-        {/* Horizon beam — the bright band of color behind the card */}
-        <div className="absolute left-[-25%] top-1/2 h-[30rem] w-[150%] -translate-y-1/2 blur-[90px] bg-[linear-gradient(90deg,transparent,rgba(59,130,246,0.45)_12%,rgba(168,85,247,0.55)_35%,rgba(236,72,153,0.7)_58%,rgba(251,146,60,0.75)_80%,rgba(250,204,21,0.45)_92%,transparent)] motion-safe:animate-[beam-drift_16s_ease-in-out_infinite]" />
-        {/* Corner glows */}
-        <div className="absolute -bottom-48 -left-48 size-[44rem] rounded-full blur-[80px] bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.6),transparent_65%)] motion-safe:animate-[aurora-1_13s_ease-in-out_infinite]" />
-        <div className="absolute -bottom-56 right-[-15%] size-[46rem] rounded-full blur-[80px] bg-[radial-gradient(circle_at_center,rgba(251,146,60,0.65),transparent_65%)] motion-safe:animate-[aurora-2_17s_ease-in-out_infinite]" />
-        <div className="absolute -top-44 right-[8%] size-[38rem] rounded-full blur-[80px] bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.55),transparent_65%)] motion-safe:animate-[aurora-3_21s_ease-in-out_infinite]" />
-        {/* Fade top & bottom so the middle band glows like a horizon */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-transparent to-black/75" />
+        {/* Main iridescent ribbon — thin concentric spectral arcs */}
+        <div className="absolute left-[-35%] top-[-6%] h-[110vh] w-[170%] -rotate-6 blur-[12px] saturate-150 bg-[radial-gradient(120%_95%_at_50%_128%,transparent_55.5%,rgba(59,130,246,0.75)_57%,rgba(34,211,238,0.8)_58.5%,rgba(52,211,153,0.7)_60%,rgba(190,242,100,0.55)_61.5%,rgba(250,204,21,0.55)_63%,rgba(249,115,22,0.7)_64.5%,rgba(236,72,153,0.6)_66%,rgba(147,51,234,0.4)_68%,transparent_71%)] motion-safe:animate-[ribbon-1_20s_ease-in-out_infinite]" />
+        {/* Secondary fainter ribbon, opposite tilt */}
+        <div className="absolute bottom-[-30%] right-[-45%] h-[100vh] w-[160%] rotate-3 opacity-70 blur-[18px] saturate-150 bg-[radial-gradient(115%_90%_at_50%_135%,transparent_58%,rgba(96,165,250,0.5)_60%,rgba(45,212,191,0.55)_62%,rgba(251,146,60,0.6)_64.5%,rgba(244,63,94,0.65)_66.5%,transparent_70%)] motion-safe:animate-[ribbon-2_26s_ease-in-out_infinite]" />
+        {/* Red-pink glow low right, like light catching haze */}
+        <div className="absolute bottom-[-18%] right-[-8%] size-[38rem] rounded-full blur-[70px] bg-[radial-gradient(circle_at_center,rgba(244,63,94,0.4),transparent_65%)] motion-safe:animate-[aurora-2_17s_ease-in-out_infinite]" />
+        {/* Faint indigo wash top-right */}
+        <div className="absolute -top-40 right-[6%] size-[30rem] rounded-full blur-[80px] bg-[radial-gradient(circle_at_center,rgba(79,70,229,0.25),transparent_65%)]" />
       </div>
 
       {/* ── Glass card ───────────────────────────────────────────────── */}
       <div className="relative w-full max-w-sm animate-in fade-in zoom-in-95 duration-500">
-        {/* Color halo bleeding out from behind the glass */}
+        {/* Warm glow bleeding up from behind the glass */}
         <div
           aria-hidden="true"
-          className="absolute -inset-8 rounded-[2.5rem] bg-gradient-to-br from-fuchsia-500/30 via-transparent to-orange-400/30 blur-2xl"
+          className="absolute -inset-6 rounded-[2.5rem] bg-gradient-to-t from-rose-500/25 via-transparent to-transparent blur-2xl"
         />
         <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-neutral-900/50 p-8 shadow-[0_24px_90px_rgba(0,0,0,0.6)] backdrop-blur-2xl backdrop-saturate-150">
           {/* Top sheen — the "glass" highlight */}
