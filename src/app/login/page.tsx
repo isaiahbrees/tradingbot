@@ -40,6 +40,22 @@ export default async function LoginPage({
 
         <main className="flex flex-1 items-center justify-center py-12">
           <div className="w-full max-w-sm animate-in fade-in slide-in-from-bottom-2 duration-500">
+            {/* Mobile-only photo banner — desktop gets the full right panel */}
+            <div className="relative mb-8 h-40 w-full overflow-hidden rounded-2xl bg-neutral-950 lg:hidden">
+              <Image
+                src={BACKDROP}
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 1023px) 100vw, 0px"
+                className="object-cover"
+              />
+              <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 to-transparent" />
+              <p className="absolute bottom-3 left-4 right-4 text-sm font-medium text-white">
+                One prompt. One bot. Every trade, accounted for.
+              </p>
+            </div>
+
             <h1 className="text-3xl font-semibold tracking-tight">Welcome back</h1>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
               Sign in for the official master prompt and your bot&apos;s performance
