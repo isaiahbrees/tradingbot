@@ -124,6 +124,35 @@
   background: oklch(0.7 0 0 / 30%);
 }
 
+/* Login backdrop — drifting aurora blobs */
+@keyframes aurora-1 {
+  0%,
+  100% {
+    transform: translate3d(-8%, -4%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(12%, 10%, 0) scale(1.2);
+  }
+}
+@keyframes aurora-2 {
+  0%,
+  100% {
+    transform: translate3d(6%, 10%, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(-10%, -8%, 0) scale(0.9);
+  }
+}
+@keyframes aurora-3 {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-8%, 8%, 0) scale(1.25) rotate(14deg);
+  }
+}
+
 /* Thin, quiet scrollbars */
 * {
   scrollbar-width: thin;

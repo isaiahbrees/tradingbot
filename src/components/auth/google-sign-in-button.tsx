@@ -5,6 +5,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { cn } from "@/lib/utils";
 
 function GoogleIcon() {
   return (
@@ -29,7 +30,13 @@ function GoogleIcon() {
   );
 }
 
-export function GoogleSignInButton({ next }: { next?: string }) {
+export function GoogleSignInButton({
+  next,
+  className,
+}: {
+  next?: string;
+  className?: string;
+}) {
   const [loading, setLoading] = useState(false);
 
   async function signIn() {
@@ -51,7 +58,7 @@ export function GoogleSignInButton({ next }: { next?: string }) {
   return (
     <Button
       variant="outline"
-      className="h-10 w-full gap-2.5"
+      className={cn("h-10 w-full gap-2.5", className)}
       onClick={signIn}
       disabled={loading}
     >
