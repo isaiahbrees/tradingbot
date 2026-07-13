@@ -26,10 +26,10 @@ export default async function LoginPage({
     <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-neutral-950 px-4 py-10">
       {/* ── Animated aurora backdrop ─────────────────────────────────── */}
       <div aria-hidden="true" className="absolute inset-0">
-        <div className="absolute -left-48 top-1/4 size-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(232,64,152,0.42),transparent_62%)] blur-3xl motion-safe:animate-[aurora-1_26s_ease-in-out_infinite]" />
-        <div className="absolute -bottom-56 right-[-10%] h-[40rem] w-[46rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,140,50,0.36),transparent_62%)] blur-3xl motion-safe:animate-[aurora-2_32s_ease-in-out_infinite]" />
-        <div className="absolute -top-56 right-1/4 size-[32rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.38),transparent_62%)] blur-3xl motion-safe:animate-[aurora-3_38s_ease-in-out_infinite]" />
-        <div className="absolute bottom-1/3 left-1/3 size-[26rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.18),transparent_62%)] blur-3xl motion-safe:animate-[aurora-2_44s_ease-in-out_infinite]" />
+        <div className="absolute -left-48 top-1/4 size-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(232,64,152,0.55),transparent_62%)] blur-3xl motion-safe:animate-[aurora-1_13s_ease-in-out_infinite]" />
+        <div className="absolute -bottom-56 right-[-10%] h-[40rem] w-[46rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,140,50,0.5),transparent_62%)] blur-3xl motion-safe:animate-[aurora-2_16s_ease-in-out_infinite]" />
+        <div className="absolute -top-56 right-1/4 size-[32rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.5),transparent_62%)] blur-3xl motion-safe:animate-[aurora-3_19s_ease-in-out_infinite]" />
+        <div className="absolute bottom-1/3 left-1/3 size-[26rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.3),transparent_62%)] blur-3xl motion-safe:animate-[aurora-2_22s_ease-in-out_infinite]" />
         {/* Vignette so the card stays the focal point */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,10,10,0.75)_100%)]" />
       </div>
