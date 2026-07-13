@@ -67,12 +67,8 @@ export default async function OverviewPage({
 
   const weeklyRows = weeklySummaries(filterDaily(data.daily, "90d"))
     .slice(0, 12)
-    .map((w) => ({ key: w.start, label: w.label, ...w }));
-  const monthlyRows = monthlySummaries(data.daily).map((m) => ({
-    key: m.start,
-    label: m.label,
-    ...m,
-  }));
+    .map((w) => ({ ...w, key: w.start }));
+  const monthlyRows = monthlySummaries(data.daily).map((m) => ({ ...m, key: m.start }));
 
   return (
     <div>
