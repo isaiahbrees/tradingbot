@@ -124,7 +124,18 @@
   background: oklch(0.7 0 0 / 30%);
 }
 
-/* Login backdrop — drifting aurora blobs */
+/* Login backdrop — prism beam + drifting aurora blobs */
+@keyframes beam-drift {
+  0%,
+  100% {
+    transform: translate(-5%, -50%) scaleY(1);
+    filter: blur(90px) hue-rotate(0deg);
+  }
+  50% {
+    transform: translate(5%, -50%) scaleY(1.15);
+    filter: blur(90px) hue-rotate(-35deg);
+  }
+}
 @keyframes aurora-1 {
   0%,
   100% {

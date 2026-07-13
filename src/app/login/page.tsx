@@ -23,20 +23,32 @@ export default async function LoginPage({
   }
 
   return (
-    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-neutral-950 px-4 py-10">
-      {/* ── Animated aurora backdrop ─────────────────────────────────── */}
+    <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-[#060606] px-4 py-10">
+      {/* ── Animated prism backdrop ──────────────────────────────────── */}
       <div aria-hidden="true" className="absolute inset-0">
-        <div className="absolute -left-48 top-1/4 size-[36rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(232,64,152,0.55),transparent_62%)] blur-3xl motion-safe:animate-[aurora-1_13s_ease-in-out_infinite]" />
-        <div className="absolute -bottom-56 right-[-10%] h-[40rem] w-[46rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(255,140,50,0.5),transparent_62%)] blur-3xl motion-safe:animate-[aurora-2_16s_ease-in-out_infinite]" />
-        <div className="absolute -top-56 right-1/4 size-[32rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.5),transparent_62%)] blur-3xl motion-safe:animate-[aurora-3_19s_ease-in-out_infinite]" />
-        <div className="absolute bottom-1/3 left-1/3 size-[26rem] rounded-full bg-[radial-gradient(circle_at_center,rgba(45,212,191,0.3),transparent_62%)] blur-3xl motion-safe:animate-[aurora-2_22s_ease-in-out_infinite]" />
-        {/* Vignette so the card stays the focal point */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(10,10,10,0.75)_100%)]" />
+        {/* Horizon beam — the bright band of color behind the card */}
+        <div className="absolute left-[-25%] top-1/2 h-[30rem] w-[150%] -translate-y-1/2 blur-[90px] bg-[linear-gradient(90deg,transparent,rgba(59,130,246,0.45)_12%,rgba(168,85,247,0.55)_35%,rgba(236,72,153,0.7)_58%,rgba(251,146,60,0.75)_80%,rgba(250,204,21,0.45)_92%,transparent)] motion-safe:animate-[beam-drift_16s_ease-in-out_infinite]" />
+        {/* Corner glows */}
+        <div className="absolute -bottom-48 -left-48 size-[44rem] rounded-full blur-[80px] bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.6),transparent_65%)] motion-safe:animate-[aurora-1_13s_ease-in-out_infinite]" />
+        <div className="absolute -bottom-56 right-[-15%] size-[46rem] rounded-full blur-[80px] bg-[radial-gradient(circle_at_center,rgba(251,146,60,0.65),transparent_65%)] motion-safe:animate-[aurora-2_17s_ease-in-out_infinite]" />
+        <div className="absolute -top-44 right-[8%] size-[38rem] rounded-full blur-[80px] bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.55),transparent_65%)] motion-safe:animate-[aurora-3_21s_ease-in-out_infinite]" />
+        {/* Fade top & bottom so the middle band glows like a horizon */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-transparent to-black/75" />
       </div>
 
       {/* ── Glass card ───────────────────────────────────────────────── */}
       <div className="relative w-full max-w-sm animate-in fade-in zoom-in-95 duration-500">
-        <div className="rounded-2xl border border-white/10 bg-white/[0.07] p-8 shadow-[0_20px_80px_rgba(0,0,0,0.55)] backdrop-blur-2xl">
+        {/* Color halo bleeding out from behind the glass */}
+        <div
+          aria-hidden="true"
+          className="absolute -inset-8 rounded-[2.5rem] bg-gradient-to-br from-fuchsia-500/30 via-transparent to-orange-400/30 blur-2xl"
+        />
+        <div className="relative overflow-hidden rounded-3xl border border-white/15 bg-neutral-900/50 p-8 shadow-[0_24px_90px_rgba(0,0,0,0.6)] backdrop-blur-2xl backdrop-saturate-150">
+          {/* Top sheen — the "glass" highlight */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/[0.12] to-transparent"
+          />
           <div className="flex flex-col items-center text-center">
             <span className="flex size-11 items-center justify-center rounded-xl border border-white/15 bg-white/10 shadow-inner">
               <svg viewBox="0 0 16 16" fill="none" className="size-5 text-white" aria-hidden="true">
